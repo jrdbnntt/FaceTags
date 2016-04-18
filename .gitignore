@@ -144,6 +144,6 @@ secretkeys.py
 # Frontend
 /static/public/build
 /static/public/views
-static/public/res/bower_components
+bower_components
 node_modules
 npm-debug.log
