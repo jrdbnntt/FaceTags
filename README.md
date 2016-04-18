@@ -4,14 +4,22 @@ See what your friends look like through a computer's eyes.
 
 # Setup
 ## Requirements
+## Server
 * python 2.7
 * pip
 * PostgresSQL 9.5
 * api/db keys
+
+## Static Frontend
 * node
 * npm
-* bower
-* gulp-cli
+```bash
+$ sudo npm install -g bower gulp-cli jade
+$ cd static/
+$ npm install
+$ bower install
+```
+
 
 ## Installation
 ```bash
@@ -19,7 +27,17 @@ $ sudo apt-get install python-psycopg2 virtualenv
 ```
 
 ## Running
+I recommend using Atom to edit the static/ and PyCharm to manage the server.
 
+### facetags-server
+
+### facetags-static
+Gulp builder for frontend code.
+```bash
+$ cd static/
+$ gulp watch    # Development (watches files)
+$ gulp          # Production (compiles once)
+```
 
 # Components
 * PostgreSQL

@@ -1,0 +1,36 @@
+doctype html
+html
+    head
+        if title
+            title FaceTags - #{title}
+        else
+            title FaceTags
+        
+        //- Favicon TODO
+        
+        //- Mobile support
+        meta(name='viewport' content='width=device-width, initial-scale=1')
+        
+        //- CSS
+        link(type='text/css' rel='stylesheet' href='/bower_components/bootstrap/dist/css/bootstrap.min.css')
+        link(type='text/css' rel='stylesheet' href='/css/main.css')
+        block localCSS
+        
+    body
+        block header
+            h2 TODO - Nav
+        
+        
+        .container-fluid
+            block content
+                h2 TODO - Content
+        
+        
+        block footer
+            h2 TODO - footer
+        
+            //- JAVASCRIPT
+        script(src='/bower_components/jquery/dist/jquery.min.js')
+        script(src='/bower_components/bootstrap/dist/js/bootstrap.min.js')
+        script(src='/js/main.min.js')
+        block localJS
