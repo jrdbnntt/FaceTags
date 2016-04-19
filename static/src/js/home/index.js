@@ -7,16 +7,16 @@
 (function() {
     'use strict';
 
-    // var API_URL = '/test/';
-    var API_URL = '/tags/get_user/10206116050723990';
+    var API_URL = '/tags/get_user/';
+    // API_URL = '/test/';
 
     var viewTable = $('table#view');
     var viewHeader = viewTable.find('thead tr');
 
     var columns = [
-        { name: 'Tag', data: 'name' },
-        { name: 'Count', data: 'count' },
-        { name: 'Pictures', data: 'image_url'}
+        { name: 'Tag', data: 'name', sWidth: '100px'},
+        { name: 'Count', data: 'count', sWidth: '50px'},
+        { name: 'Pictures', data: 'imgContainer'}
     ];
 
     getData()
@@ -56,8 +56,22 @@
      */
     function parseData(rows) {
         var dfd = $.Deferred();
+        var imgUrls = 'image_urls';
 
-        console.log("parse", rows);
+
+        if (rows.length > 0) {
+
+            // Convert image urls to img tags
+            $.each(rows, function(i, row) {
+                row.imgContainer = '<div class="pic-container">';
+
+                row[imgUrls].forEach(function(url) {
+                    row.imgContainer += '<a target="_blank" href="'+url+'"><img class="img-responsive" src="'+url+'"/></a>';
+                });
+
+                row.imgContainer += '</div>';
+            });
+        }
 
         return dfd.resolve({
             cols: columns,
@@ -66,16 +80,13 @@
     }
 
     function initializeTable(tableData) {
-
-        console.log("init", tableData);
-
         tableData.cols.forEach(function(col) {
             viewHeader.append('<th>'+col.name+'</th>');
         });
 
         viewTable.DataTable({
             data: tableData.rows,
-            scrollX: true,
+            // scrollX: true,
             columns: tableData.cols,
             order: [[1, 'desc']],
             aLengthMenu: [

@@ -18,12 +18,12 @@ def signup(request):
 def test(request):
     return JsonResponse({
         'data': [
-            {'name': 'tag1', 'count': 10, 'image_url': 'sdas'},
-            {'name': 'tag2', 'count': 10, 'image_url': 'sdas'},
-            {'name': 'tag3', 'count': 10, 'image_url': 'sdas'},
-            {'name': 'tag4', 'count': 100, 'image_url': 'sdas'},
-            {'name': 'tag5', 'count': 1, 'image_url': 'sdas'},
-            {'name': 'tag6', 'count': 12, 'image_url': 'sdas'},
+            {'name': 'tag1', 'count': 10, 'image_urls': ['https://scontent.xx.fbcdn.net/hprofile-xfa1/v/t1.0-1/11145072_10152780321362483_2068237063183610202_n.jpg?oh=8184c4abe81df531ff224a6c84c609e0&oe=57AB7E5F','https://scontent.xx.fbcdn.net/hprofile-xfa1/v/t1.0-1/11145072_10152780321362483_2068237063183610202_n.jpg?oh=8184c4abe81df531ff224a6c84c609e0&oe=57AB7E5F','https://scontent.xx.fbcdn.net/hprofile-xfa1/v/t1.0-1/11145072_10152780321362483_2068237063183610202_n.jpg?oh=8184c4abe81df531ff224a6c84c609e0&oe=57AB7E5F']},
+            {'name': 'tag2', 'count': 10, 'image_urls': []},
+            {'name': 'tag3', 'count': 10, 'image_urls': ['https://scontent.xx.fbcdn.net/hprofile-xfa1/v/t1.0-1/11145072_10152780321362483_2068237063183610202_n.jpg?oh=8184c4abe81df531ff224a6c84c609e0&oe=57AB7E5F']},
+            {'name': 'tag4', 'count': 100, 'image_urls': []},
+            {'name': 'tag5', 'count': 1, 'image_urls': []},
+            {'name': 'tag6', 'count': 12, 'image_urls': ['https://scontent.xx.fbcdn.net/hprofile-xfa1/v/t1.0-1/11145072_10152780321362483_2068237063183610202_n.jpg?oh=8184c4abe81df531ff224a6c84c609e0&oe=57AB7E5F']},
         ]
     })
 
