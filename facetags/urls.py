@@ -21,6 +21,6 @@ urlpatterns = [
     url(r'^tags/', include('tags.urls')),
     url(r'^admin/', admin.site.urls),
     url(r'^home/|index/', include('home.urls')),
-    url(r'/^', include('home.urls')),
+    url(r'^/?$', include('home.urls')),
 ]
 
