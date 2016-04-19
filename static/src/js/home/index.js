@@ -8,6 +8,7 @@
     'use strict';
 
     var API_URL = '/test/';
+    
 
     var viewTable = $('table#view');
     var viewHeader = viewTable.find('thead tr');
@@ -32,9 +33,11 @@
             url: API_URL,
             success: function(res) {
                 if (res.error) {
+                    console.error(res);
                     dfd.reject(res.error);
                 }
                 if (!res.data) {
+                    console.error(res);
                     dfd.reject('No data returned');
                 }
 
