@@ -11,19 +11,8 @@ import pprint
 def index(request):
     return HttpResponse("Hello mah niggah")
 
-
-def test_json(request):
-    try:
-        data = json.loads(request.body)
-        return JsonResponse(data)
-    except ValueError:
-        return HttpResponse("No JSON found")
-
-
 def get_user(request, user_id):
-    if request.is_ajax():
-        return HttpResponse("Must be json/application")
-    token = "CAACEdEose0cBAMqtw7VYfDnCpM9iI36ClDWSTfK6yPZCRDkPw1704Hr7anrlTpUJCZB5P5RIan63CcVYQi37i4x3wsG2dnnvXZAtnzXa9a5Ou4H5DUqlbrwfesi5iZCZCBCYZCiuZCn5K2goE00epDZC4PWCbaSBEERlVRJZC20kVqaxuR1ZAEOZCf9M8ycOdk2eFBefPiIKuK8cwZDZD"
+    token = "CAACEdEose0cBAEfoBCrnN1ZChlypF1wVvuO6qRPQyBsRCtOA80GLjKeGGl3H2BbebN1OmhD6fdYCEw3IluM7z2cwZADfrT27tFxMIhDNH3buZBBXRBIvLZCl9FqtSdqxoBiutIdXN0qbEYIKWXpFmNrbyF2dwBNR4tC5NxxeKK3flwvUjKOZAIfsxw2RHiEbgxOvR0DGI9gZDZD"
 
     friends = []
     params = {
