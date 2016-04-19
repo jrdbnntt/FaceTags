@@ -16,3 +16,9 @@ DB_HOST = os.getenv('DB_HOST')
 DB_PORT = os.getenv('DB_PORT')
 DB_USER = os.getenv('DB_USER')
 DB_PASSWORD = os.getenv('DB_PASSWORD')
+
+CLARIFAI_ID = os.environ["CLARIFAI_ID"]
+CLARIFAI_SECRET = os.environ["CLARIFAI_SECRET"]
+
+FACEBOOK_ID = os.environ["FACEBOOK_ID"]
+FACEBOOK_SECRET = os.environ["FACEBOOK_SECRET"]
