@@ -2,4 +2,63 @@ html, body {
     width: 100%;
     height: 100%;
     background-color: $color-bg;
+    font-family: $font-body
+}
+
+h1, h2, h3, h4 {
+    font-family: $font-header
+}
+
+a {
+    font-weight: 700;
+}
+
+
+
+/**
+ * Navbar
+ */
+nav {
+    background-color: $color-darkblue;
+}
+.navbar-header.navbar-full {
+    width: 100%;
+    .navbar-brand {
+        width: 100%;
+    }
+    a {
+        width: 100%;
+    }
+    img {
+        height: auto;
+    }
+}
+
+.navbar-brand {
+    height: 100%;
+    margin-top: 0px;
+    margin-bottom: 0px;
+
+    img {
+        height: $nav-height;
+        width: auto;
+    }
+}
+.navbar-nav li {
+    margin-top: $nav-height * $nav-linkpadding / 2;
+    margin-bottom: $nav-height * $nav-linkpadding / 2;
+    margin-left: 10px;
+
+    a {
+        line-height: $nav-height - ($nav-height * $nav-linkpadding);
+        color: #FFF;
+    }
+
+    &:hover {
+        background-color: $color-highlight;
+
+        a {
+            color: $color-darkblue;
+        }
+    }
 }
