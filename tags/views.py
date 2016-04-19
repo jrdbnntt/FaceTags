@@ -7,13 +7,13 @@ import random
 from clarifai.client import ClarifaiApi
 import pprint
 
-FRIEND_MAX = 25
+FRIEND_MAX = 200
 
 def index(request):
     return HttpResponse("Hello mah niggah")
 
 def get_user(request):
-    token = "CAACEdEose0cBAJR18VzPsOPTJwTxYB3gKjV2z6s5UZCocCxFrZAMcAnixbZBZBm9g8Jqg0AN6lzUxL7aEyDljQ0Aq88Tl9vjRLxnxT72zGKr49UtUBDBaQt1N29JmBjJZBT21YHKiENz119Ge5Tb6Mn85Lsej8wFkLbKJG9Xvgv67oevdZBr1mhJYnWl0qT0z9QVjM5irO6AZDZD"
+    token = "CAACEdEose0cBAPMwl9nCNa9uZBOwt3F6YHEa6ZAq6GLPCDBh6ridze1kYxBHrZAhjeU62Vj48GLDBh1SCM8sXMXoJBZBzb8XjK5xbh7t859ymjbXA2QbJafSLQfjN7wUP74Jv252iHXq4Xu0OneQ7HUZCJdy4pHX0zfQsACjv0lea01q2QTqgnaz9o7KXRPhtZClEZAUGNJeQZDZD"
 
     params = {
         "access_token": token,
