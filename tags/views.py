@@ -11,8 +11,13 @@ import pprint
 def index(request):
     return HttpResponse("Hello mah niggah")
 
-def get_user(request, user_id):
-    token = "CAACEdEose0cBAEfoBCrnN1ZChlypF1wVvuO6qRPQyBsRCtOA80GLjKeGGl3H2BbebN1OmhD6fdYCEw3IluM7z2cwZADfrT27tFxMIhDNH3buZBBXRBIvLZCl9FqtSdqxoBiutIdXN0qbEYIKWXpFmNrbyF2dwBNR4tC5NxxeKK3flwvUjKOZAIfsxw2RHiEbgxOvR0DGI9gZDZD"
+def get_user(request):
+    token = "CAACEdEose0cBADQ3x2LWFCj0f7gX8x9pg01vLuYRBOFLDBpD0ZAEAIXOyLJPAQoKjylpV6pz0Ev67IAZCk4HpzNPsN9452ugIWXfq1w0QWnoATNkvn04U57pUEFBCSLQKfvPIIB0kwknRdODcN5Kn1LwzV9ZAtFO03McCmJWJp4wZBkZCtuF3W3qIoZCScDWHj6402zx8ZBbwZDZD"
+
+    params = {
+        "access_token": token,
+    }
+    user_id = requests.get("https://graph.facebook.com/v2.6/me", params=params).json()["id"]
 
     friends = []
     params = {
@@ -60,6 +65,6 @@ def get_user(request, user_id):
                         break
 
     tags = {"data": tags}
-    pprint.pprint(tags)
+    # pprint.pprint(tags)
 
     return JsonResponse(tags)
