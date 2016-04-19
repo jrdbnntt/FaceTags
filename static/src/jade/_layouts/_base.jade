@@ -34,19 +34,22 @@ html
         block localCSS
         
     body
-        block header
-            if title == 'Home'
-                include ./_nav-home
-            else
-                include ./_nav-reg
-        
-        .container-fluid
-            block content
-                h2 TODO - Content
-        
-        
+        #page-wrap
+            #page-main
+                block header
+                    if title == 'Home'
+                        include ./_nav-home
+                    else
+                        include ./_nav-reg
+                
+                #page-content.container.center-block
+                    block content
+                        h2 TODO - Content
+                
         block footer
-            h2 TODO - footer
+            #page-footer
+                .center-block.text-center
+                    h4 #{'<~>'}
         
             //- JAVASCRIPT
         script(src='/static/bower_components/jquery/dist/jquery.min.js')
