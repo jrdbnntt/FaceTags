@@ -36,11 +36,11 @@ var dirs = {
 
 function createCleanTask(task, dirs) {
     gulp.task(task, function() {
-        return gulp.src(dirs)
-            .pipe(clean({
-                force: true,
-                read: false
-            }));
+        return gulp.src(dirs);
+            // .pipe(clean({
+            //     force: true,
+            //     read: false
+            // }));
     });
 }
 

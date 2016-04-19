@@ -87,7 +87,7 @@ nav {
         margin-top: 0;
         margin-bottom: 0;
         padding: 0;
-        
+
         > * {
             line-height: $footer-height;
             padding: 0;
@@ -104,6 +104,7 @@ nav {
     margin-top: $page-spacing;
     margin-bottom: $page-spacing;
     max-width: 1000px;
+    background-color: $color-fg;
 }
 
 h1 {

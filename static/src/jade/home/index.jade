@@ -1,5 +1,16 @@
 extends ../_layouts/_base
 
+block localCSS
+    link(type='text/css' rel='stylesheet' href='/static/bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css')
+    link(type='text/css' rel='stylesheet' href='/static/bower_components/datatables.net-responsive-bs/css/responsive.bootstrap.min.css')
+
+block localJS
+    script(src='/static/bower_components/datatables.net/js/jquery.dataTables.min.js')
+    script(src='/static/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js')
+    script(src='/static/bower_components/datatables.net-responsive/js/dataTables.responsive.min.js')
+    script(src='/static/bower_components/datatables.net-responsive-bs/js/responsive.bootstrap.js')
+    script(src='/static/js/home/index.min.js')
+
 block vars
     - title = 'Home'
 
@@ -9,3 +20,10 @@ block content
     <p>Aliquid nostra laborum tenetur habitant minim! Impedit pellentesque! Montes! Conubia corporis nibh, lorem dictum, inventore quis? Cursus odio? Turpis ad dictumst lacinia eaque nihil imperdiet deserunt varius quibusdam. Voluptatem harum, minus dolorum iaculis! Inventore quo dictumst, rutrum sunt magnam. Diam fuga tempore netus natoque eleifend integer dicta esse. Ipsam eveniet quidem delectus? Nostrum volutpat harum euismod, iusto eleifend anim voluptatum. Itaque lacinia metus, nam, fames pellentesque, phasellus sunt bibendum aliqua, quaerat asperiores? Ullamco perspiciatis cupidatat aliquam esse rhoncus. Mollit alias, tincidunt. Quae quibusdam accusantium vestibulum sunt bibendum, consectetur fames corporis, a nostrud! Ea, eius, pharetra maiores? Nullam integer doloremque aenean.</p>
 
     <p>Dignissim dignissim veritatis irure, corporis accusamus laboriosam ad praesent, debitis incididunt ullam. Torquent quam feugiat phasellus vel cupidatat, quasi, posuere? Doloremque congue quisque quam velit mi beatae magnis omnis quis erat nascetur, labore dapibus maxime tristique! Architecto iusto nibh tempus mauris commodi, qui aliqua, mauris hic? Dolores laboriosam imperdiet hendrerit cumque varius sunt voluptatem est incidunt primis vehicula? Soluta varius! Sed pariatur vitae sed? At hymenaeos? Placeat nam deleniti nam, odio accumsan earum vitae rutrum labore? Facilis sollicitudin cillum proident facere lacinia occaecat aliquip, provident irure voluptatibus eum luctus per totam, velit mauris incidunt natoque, minus dolor feugiat sollicitudin venenatis.</p>
+
+
+    h2 All Pulled Tags
+    .tag-container
+        table#view.table.table-bordered.table-striped
+            thead
+                tr
