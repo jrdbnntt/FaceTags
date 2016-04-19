@@ -24,6 +24,9 @@ $ bower install
 ## Installation
 ```bash
 $ sudo apt-get install python-psycopg2 virtualenv
+$ pip install Django
+$ pip install django-allauth
+$ pip install git+git://github.com/Clarifai/clarifai-python.git
 ```
 
 ## Running
