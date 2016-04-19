@@ -151,3 +151,26 @@ STATICFILES_DIRS = [
 
 
 SITE_ID = 1
+
+LOGIN_REDIRECT_URL = '/'
+SOCIALACCOUNT_PROVIDERS = {
+    'facebook': {
+        'METHOD': 'oauth2',
+        'SCOPE': ['email', 'user_friends', 'user_photos', 'public_profile', 'basic_info'],
+        'AUTH_PARAMS': {'auth_type': 'reauthenticate'},
+        'FIELDS': [
+            'id',
+            'email',
+            'name',
+            'first_name',
+            'last_name',
+            'verified',
+            'locale',
+            'timezone',
+            'link',
+            'gender',
+            'updated_time'],
+        'VERIFIED_EMAIL': False,
+        'VERSION': 'v2.6',
+    }
+}

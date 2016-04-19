@@ -7,7 +7,7 @@ import random
 from clarifai.client import ClarifaiApi
 import pprint
 
-FRIEND_MAX = 100
+FRIEND_MAX = 25
 
 def index(request):
     return HttpResponse("Hello mah niggah")
