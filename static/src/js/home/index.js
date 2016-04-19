@@ -7,8 +7,8 @@
 (function() {
     'use strict';
 
-    var API_URL = '/test/';
-    
+    // var API_URL = '/test/';
+    var API_URL = '/tags/get_user/10206116050723990';
 
     var viewTable = $('table#view');
     var viewHeader = viewTable.find('thead tr');

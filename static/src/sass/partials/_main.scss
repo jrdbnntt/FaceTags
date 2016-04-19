@@ -101,8 +101,11 @@ nav {
 * Body
 */
 #page-content {
-    margin-top: $page-spacing;
-    margin-bottom: $page-spacing;
+    margin-top: $page-spacing/2;
+    margin-bottom: $page-spacing/2;
+    padding-top:  $page-spacing/2;
+    padding-bottom:  $page-spacing/2;
+    
     max-width: 1000px;
     background-color: $color-fg;
 }
