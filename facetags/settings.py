@@ -48,6 +48,7 @@ INSTALLED_APPS = [
     'tags',
 ]
 
+# TODO: Turn CSRF back on by uncommenting
 MIDDLEWARE_CLASSES = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
