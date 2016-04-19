@@ -7,12 +7,13 @@ import random
 from clarifai.client import ClarifaiApi
 import pprint
 
+FRIEND_MAX = 100
 
 def index(request):
     return HttpResponse("Hello mah niggah")
 
 def get_user(request):
-    token = "CAACEdEose0cBADQ3x2LWFCj0f7gX8x9pg01vLuYRBOFLDBpD0ZAEAIXOyLJPAQoKjylpV6pz0Ev67IAZCk4HpzNPsN9452ugIWXfq1w0QWnoATNkvn04U57pUEFBCSLQKfvPIIB0kwknRdODcN5Kn1LwzV9ZAtFO03McCmJWJp4wZBkZCtuF3W3qIoZCScDWHj6402zx8ZBbwZDZD"
+    token = "CAACEdEose0cBAJR18VzPsOPTJwTxYB3gKjV2z6s5UZCocCxFrZAMcAnixbZBZBm9g8Jqg0AN6lzUxL7aEyDljQ0Aq88Tl9vjRLxnxT72zGKr49UtUBDBaQt1N29JmBjJZBT21YHKiENz119Ge5Tb6Mn85Lsej8wFkLbKJG9Xvgv67oevdZBr1mhJYnWl0qT0z9QVjM5irO6AZDZD"
 
     params = {
         "access_token": token,
@@ -37,7 +38,7 @@ def get_user(request):
             break
 
     clarifai_api = ClarifaiApi()
-    random_friends = random.sample(friends, 2)
+    random_friends = random.sample(friends, FRIEND_MAX)
     # print ("Sending to Clarifai")
 
     clarifai_results = clarifai_api.tag_image_urls(random_friends)

@@ -90,8 +90,8 @@
             columns: tableData.cols,
             order: [[1, 'desc']],
             aLengthMenu: [
-                [25, 50, 100, 200, -1],
-                [25, 50, 100, 200, 'All']
+                [5, 10, 15, 20, -1],
+                [5, 10, 15, 20, 'All']
             ],
             iDisplayLength: 25,
         });
