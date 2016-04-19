@@ -10,8 +10,10 @@
     var API_URL = '/tags/get_user/';
     // API_URL = '/test/';
 
-    var viewTable = $('table#view');
+    var view = $('#view');
+    var viewTable = view.find('table');
     var viewHeader = viewTable.find('thead tr');
+    var viewLoading = view.find('.loading-message');
 
     var columns = [
         { name: 'Tag', data: 'name', sWidth: '100px'},
@@ -19,12 +21,41 @@
         { name: 'Pictures', data: 'imgContainer'}
     ];
 
-    getData()
+    startLoading()
+    .then(getData)
     .then(parseData)
     .then(initializeTable)
+    .then(stopLoading)
     .fail(function(error) {
         console.error(error);
+        stopLoading();
+        viewLoading.text('Error!');
     });
+
+
+    var loadInterval;
+
+    function startLoading() {
+        var elipContainer = viewLoading.find('span');
+        viewLoading.show();
+
+        elipContainer.empty();
+        loadInterval = setInterval(function() {
+            if (elipContainer.text().length < 6) {
+                elipContainer.text(elipContainer.text() + '. ');
+            } else {
+                elipContainer.empty();
+            }
+        }, 500);
+
+        return $.when();
+    }
+
+    function stopLoading() {
+        clearInterval(loadInterval);
+        viewLoading.hide();
+        return $.when();
+    }
 
     function getData() {
         var dfd = $.Deferred();
