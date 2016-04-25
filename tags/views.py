@@ -139,3 +139,21 @@ def group_tags(friends):
 
     return tags
 
+
+def get_all(request):
+    """ Gets all tags in the db with counts of use """
+    tags = []
+
+    for tag in Tag.objects.all():
+        tdata = {
+            'name': tag.name,
+            'count': tag.facebookimage_set.distinct().count()
+        }
+        
+        if tdata['count'] > 0:
+            tags.append(tdata)
+
+    return JsonResponse({'data': tags})
+
+
+
