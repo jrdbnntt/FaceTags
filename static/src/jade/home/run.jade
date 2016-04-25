@@ -9,10 +9,10 @@ block localJS
     script(src='/static/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js')
     script(src='/static/bower_components/datatables.net-responsive/js/dataTables.responsive.min.js')
     script(src='/static/bower_components/datatables.net-responsive-bs/js/responsive.bootstrap.js')
-    script(src='/static/js/home/index.min.js')
+    script(src='/static/js/home/run.min.js')
 
 block vars
-    - title = 'Home'
+    - title = 'Run'
 
 block content
     .intro
@@ -21,14 +21,12 @@ block content
         
 
     .divider
-    
-    .text-center
-        a(href='/run'): button.btn.btn-primary.btn-lg(type='button') Try it out!
 
-    h2.page-header All Pulled Tags
     .tag-container
         #view
             table.table.table-bordered.table-striped.dt-responsive
                 thead
                     tr
+            .text-center
+                fb:login-button(size='xlarge' scope="email,user_friends,user_photos,public_profile" onlogin="checkLoginState();")
             h3.loading-message

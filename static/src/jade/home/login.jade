@@ -1,9 +1,0 @@
-extends ../_layouts/_base
-
-block vars
-    - title = 'Log In'
-
-block content
-    h1 Log In
-    {% load socialaccount %}
-    <a href="{% provider_login_url "facebook" method="oauth2" %}">Facebook Connect</a>
