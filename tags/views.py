@@ -1,16 +1,13 @@
-from django.shortcuts import render
+from __future__ import print_function
 from clarifai.client import ClarifaiApi
 from django.http import HttpResponse
 from django.http import JsonResponse
 from django.core.exceptions import ObjectDoesNotExist
 from models import FacebookImage, Tag
-import json
 import requests
 import random
 
-import pprint
-
-FRIEND_MAX = 200
+CLARIFAI_MAX = 128
 
 
 def index(request):
@@ -22,9 +19,16 @@ def get_user(request):
     friend_img_urls = pull_friends_from_facebook(token)
 
     friends, remaining_friend_urls = pull_stored_tags(friend_img_urls)
-    new_friends = pull_tags_from_clarafai(remaining_friend_urls)
-    friends.extend(new_friends)
-    store_new_friends(new_friends)
+    if len(remaining_friend_urls) > 0:
+        new_friends = pull_tags_from_clarafai(random.sample(remaining_friend_urls, CLARIFAI_MAX))
+        friends.extend(new_friends)
+        store_new_friends(new_friends)
+
+        print('Got {} friends, ({} newly tagged, {} from db)'.format(
+            len(friends), len(new_friends), len(friends) - len(new_friends)
+        ))
+    else:
+        print('Got {} friends, all from db'.format(len(friends)))
 
     return JsonResponse({
         'data': group_tags(friends)
@@ -54,7 +58,7 @@ def pull_friends_from_facebook(token):
         except KeyError:
             break
 
-    return random.sample(friends, FRIEND_MAX)
+    return friends
 
 
 def pull_stored_tags(img_urls):
@@ -65,14 +69,14 @@ def pull_stored_tags(img_urls):
         try:
             stored_img = FacebookImage.objects.get(url=url)
 
-            img = {'img_url': stored_img.url, 'tags': []}
+            img = {'url': stored_img.url, 'tags': []}
             for tag in stored_img.tags.all():
                 img['tags'].append(tag.name)
 
             found.append(img)
 
         except ObjectDoesNotExist:
-            not_found.append(img_urls)
+            not_found.append(url)
 
     return found, not_found
 
@@ -95,9 +99,9 @@ def pull_tags_from_clarafai(img_urls):
 
 
 def store_new_friends(friends):
-    """ Stores friends & tags from the format [{'img_url', tags[]}] """
+    """ Stores friends & tags from the format [{'url', tags[]}] """
     for f in friends:
-        img = FacebookImage(url=f['img_url'])
+        img = FacebookImage(url=f['url'])
         img.save()
 
         for tag in f['tags']:
@@ -123,7 +127,7 @@ def group_tags(friends):
                 if tag['name'] == tag_name:
                     matching_tag = tag
                     tag['count'] += 1
-                    tag['img_urls'].append(f['url'])
+                    tag['image_urls'].append(f['url'])
                     break
 
             if matching_tag is None:
