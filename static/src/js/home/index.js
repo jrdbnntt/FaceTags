@@ -136,7 +136,7 @@
 
     // Facebook Stuff
     window.checkLoginState = function() {
-        FB.getLoginState(function(response) {
+        FB.getLoginStatus(function(response) {
             statusChangeCallback(response);
         });
     };

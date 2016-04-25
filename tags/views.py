@@ -15,7 +15,7 @@ def index(request):
 
 
 def get_user(request):
-    token = ""
+    token = request.GET["token"]
     friend_img_urls = pull_friends_from_facebook(token)
 
     friends, remaining_friend_urls = pull_stored_tags(friend_img_urls)
