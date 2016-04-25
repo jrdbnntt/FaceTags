@@ -1,20 +1,37 @@
 from django.shortcuts import render
+from clarifai.client import ClarifaiApi
 from django.http import HttpResponse
 from django.http import JsonResponse
+from django.core.exceptions import ObjectDoesNotExist
+from models import FacebookImage, Tag
 import json
 import requests
 import random
-from clarifai.client import ClarifaiApi
+
 import pprint
 
 FRIEND_MAX = 200
 
+
 def index(request):
     return HttpResponse("Hello mah niggah")
 
-def get_user(request):
-    token = "CAACEdEose0cBAPMwl9nCNa9uZBOwt3F6YHEa6ZAq6GLPCDBh6ridze1kYxBHrZAhjeU62Vj48GLDBh1SCM8sXMXoJBZBzb8XjK5xbh7t859ymjbXA2QbJafSLQfjN7wUP74Jv252iHXq4Xu0OneQ7HUZCJdy4pHX0zfQsACjv0lea01q2QTqgnaz9o7KXRPhtZClEZAUGNJeQZDZD"
 
+def get_user(request):
+    token = ""
+    friend_img_urls = pull_friends_from_facebook(token)
+
+    friends, remaining_friend_urls = pull_stored_tags(friend_img_urls)
+    new_friends = pull_tags_from_clarafai(remaining_friend_urls)
+    friends.extend(new_friends)
+    store_new_friends(new_friends)
+
+    return JsonResponse({
+        'data': group_tags(friends)
+    })
+
+
+def pull_friends_from_facebook(token):
     params = {
         "access_token": token,
     }
@@ -28,8 +45,8 @@ def get_user(request):
     r = requests.get("https://graph.facebook.com/v2.6/" + user_id + "/invitable_friends", params=params)
     while True:
         for person in r.json()["data"]:
-            if not person["picture"]["data"]["is_silhouette"]\
-                    and person["picture"]["data"]["height"] > 250\
+            if not person["picture"]["data"]["is_silhouette"] \
+                    and person["picture"]["data"]["height"] > 250 \
                     and person["picture"]["data"]["width"] > 250:
                 friends.append(person["picture"]["data"]["url"])
         try:
@@ -37,35 +54,84 @@ def get_user(request):
         except KeyError:
             break
 
+    return random.sample(friends, FRIEND_MAX)
+
+
+def pull_stored_tags(img_urls):
+    found = []
+    not_found = []
+
+    for url in img_urls:
+        try:
+            stored_img = FacebookImage.objects.get(url=url)
+
+            img = {'img_url': stored_img.url, 'tags': []}
+            for tag in stored_img.tags.all():
+                img['tags'].append(tag.name)
+
+            found.append(img)
+
+        except ObjectDoesNotExist:
+            not_found.append(img_urls)
+
+    return found, not_found
+
+
+def pull_tags_from_clarafai(img_urls):
+    friends = []
     clarifai_api = ClarifaiApi()
-    random_friends = random.sample(friends, FRIEND_MAX)
-    # print ("Sending to Clarifai")
+    clarifai_results = clarifai_api.tag_image_urls(img_urls)
 
-    clarifai_results = clarifai_api.tag_image_urls(random_friends)
-    # pprint.pprint(clarifai_results)
+    for image in clarifai_results['results']:
+        friend = {'url': image['url'], 'tags': []}
 
-
-    # Gets the counts of each tag
-    tags = []
-    for image in clarifai_results["results"]:
         for i, tag_name in enumerate(image["result"]["tag"]["classes"]):
-            if image["result"]["tag"]["probs"][i] < 0.9:
-                continue
+            if image["result"]["tag"]["probs"][i] >= 0.9:
+                friend['tags'].append(tag_name)
 
-            if not any(tag['name'] == tag_name for tag in tags):
+        friends.append(friend)
+
+    return friends
+
+
+def store_new_friends(friends):
+    """ Stores friends & tags from the format [{'img_url', tags[]}] """
+    for f in friends:
+        img = FacebookImage(url=f['img_url'])
+        img.save()
+
+        for tag in f['tags']:
+            # Save if new
+            try:
+                stored_tag = Tag.objects.get(name=tag)
+            except ObjectDoesNotExist:
+                stored_tag = Tag(name=tag)
+                stored_tag.save()
+
+            img.tags.add(stored_tag)
+
+        img.save()
+
+
+def group_tags(friends):
+    tags = []
+
+    for f in friends:
+        for tag_name in f['tags']:
+            matching_tag = None
+            for tag in tags:
+                if tag['name'] == tag_name:
+                    matching_tag = tag
+                    tag['count'] += 1
+                    tag['img_urls'].append(f['url'])
+                    break
+
+            if matching_tag is None:
                 tags.append({
-                    "name": tag_name,
-                    "count": 1,
-                    "image_urls": [image["url"]]
+                    'name': tag_name,
+                    'count': 1,
+                    'image_urls': [f['url']]
                 })
-            else:
-                for tag in tags:
-                    if tag["name"] == tag_name:
-                        tag["count"] += 1
-                        tag["image_urls"].append(image["url"])
-                        break
 
-    tags = {"data": tags}
-    # pprint.pprint(tags)
+    return tags
 
-    return JsonResponse(tags)
