@@ -4,17 +4,17 @@
  * Dynamically loads data into sample table
  */
 
+/* globals FB */
 (function() {
     'use strict';
 
     var API_URL = '/tags/get_user/';
-    //API_URL = '/test/';
     var token = null;
-
     var view = $('#view');
     var viewTable = view.find('table');
     var viewHeader = viewTable.find('thead tr');
     var viewLoading = view.find('.loading-message');
+    var fbLog = view.find('fb.loading-message');
 
     var columns = [
         { name: 'Tag', data: 'name', sWidth: '100px'},
@@ -22,21 +22,10 @@
         { name: 'Pictures', data: 'imgContainer'}
     ];
 
-    // startLoading()
-    // .then(getData)
-    // .then(parseData)
-    // .then(initializeTable)
-    // .then(stopLoading)
-    // .fail(function(error) {
-    //     console.error(error);
-    //     stopLoading();
-    //     viewLoading.text('Error!');
-    // });
-
-
     var loadInterval;
 
     function startLoading() {
+        viewLoading.text('Loading');
         var elipContainer = viewLoading.find('span');
         viewLoading.show();
 
@@ -93,7 +82,6 @@
         var dfd = $.Deferred();
         var imgUrls = 'image_urls';
 
-
         if (rows.length > 0) {
 
             // Convert image urls to img tags
@@ -144,6 +132,7 @@
     function statusChangeCallback(response) {
         console.log(response);
         if (response.status === 'connected') {
+            fbLog.hide();
             token = response.authResponse.accessToken;
 
             startLoading()
@@ -156,6 +145,9 @@
                 stopLoading();
                 viewLoading.text('Error!');
             });
+        } else {
+            alert('There was an error connecting to Facebook');
+            viewLoading.text('Error!');
         }
     }
 
@@ -168,7 +160,7 @@
 
         FB.getLoginStatus(function(response) {
             statusChangeCallback(response);
-        })
+        });
     };
 
     (function(d, s, id){
@@ -180,13 +172,3 @@
     }(document, 'script', 'facebook-jssdk'));
 
 })();
-
-
-
-
-
-
-
-
-
-

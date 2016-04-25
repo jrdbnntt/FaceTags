@@ -16,23 +16,29 @@ def index(request):
 
 def get_user(request):
     token = request.GET["token"]
-    friend_img_urls = pull_friends_from_facebook(token)
+    try:
+        friend_img_urls = pull_friends_from_facebook(token)
+        friends, remaining_friend_urls = pull_stored_tags(friend_img_urls)
+        if len(remaining_friend_urls) > 0:
+            new_friends = pull_tags_from_clarafai(random.sample(remaining_friend_urls, CLARIFAI_MAX))
+            friends.extend(new_friends)
+            store_new_friends(new_friends)
 
-    friends, remaining_friend_urls = pull_stored_tags(friend_img_urls)
-    if len(remaining_friend_urls) > 0:
-        new_friends = pull_tags_from_clarafai(random.sample(remaining_friend_urls, CLARIFAI_MAX))
-        friends.extend(new_friends)
-        store_new_friends(new_friends)
+            print('Got {} friends, ({} newly tagged, {} from db)'.format(
+                len(friends), len(new_friends), len(friends) - len(new_friends)
+            ))
+        else:
+            print('Got {} friends, all from db'.format(len(friends)))
 
-        print('Got {} friends, ({} newly tagged, {} from db)'.format(
-            len(friends), len(new_friends), len(friends) - len(new_friends)
-        ))
-    else:
-        print('Got {} friends, all from db'.format(len(friends)))
+        return JsonResponse({
+            'data': group_tags(friends)
+        })
 
-    return JsonResponse({
-        'data': group_tags(friends)
-    })
+    except ValueError as e:
+        print(e)
+        return JsonResponse({
+            'data': []
+        })
 
 
 def pull_friends_from_facebook(token):
@@ -154,6 +160,3 @@ def get_all(request):
             tags.append(tdata)
 
     return JsonResponse({'data': tags})
-
-
-
