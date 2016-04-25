@@ -150,14 +150,17 @@ STATICFILES_DIRS = [
 ]
 
 
-SITE_ID = 1
+SITE_ID = 3
 
 LOGIN_REDIRECT_URL = '/'
+LOGIN_URL = '/'
 SOCIALACCOUNT_PROVIDERS = {
     'facebook': {
         'METHOD': 'oauth2',
-        'SCOPE': ['email', 'user_friends', 'user_photos', 'public_profile', 'basic_info'],
+        # 'METHOD': 'js_sdk',
+        'SCOPE': ['email', 'user_friends', 'user_photos', 'public_profile'],
         'AUTH_PARAMS': {'auth_type': 'reauthenticate'},
+        'EXCHANGE_TOKEN': True,
         'FIELDS': [
             'id',
             'email',

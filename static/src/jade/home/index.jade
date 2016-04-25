@@ -18,6 +18,9 @@ block content
     .intro
         span.text-center They say a picture is worth a thousand words. The question is, what are they?
         p &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;FaceTags is here to answer that! With FaceTags, you can look up check out what your friends' profile pictures contain and what is the most common thing between them. Don't know how many friends have cats as their profile picture? We will let you know! Just log in and click "OK", "Accept", or whatever Facebook warns you about (we don't store your info, we promise) and you are on your way to getting to know your Facebook friends even better!
+        //{% load socialaccount %}
+        //a(href="{% provider_login_url 'facebook' method='oauth2' %}") Login with Facebook
+        fb:login-button(scope="email,user_friends,user_photos,public_profile" onlogin="checkLoginState();")
 
     .divider
 

@@ -9,6 +9,7 @@
 
     var API_URL = '/tags/get_user/';
     //API_URL = '/test/';
+    var token = null;
 
     var view = $('#view');
     var viewTable = view.find('table');
@@ -21,16 +22,16 @@
         { name: 'Pictures', data: 'imgContainer'}
     ];
 
-    startLoading()
-    .then(getData)
-    .then(parseData)
-    .then(initializeTable)
-    .then(stopLoading)
-    .fail(function(error) {
-        console.error(error);
-        stopLoading();
-        viewLoading.text('Error!');
-    });
+    // startLoading()
+    // .then(getData)
+    // .then(parseData)
+    // .then(initializeTable)
+    // .then(stopLoading)
+    // .fail(function(error) {
+    //     console.error(error);
+    //     stopLoading();
+    //     viewLoading.text('Error!');
+    // });
 
 
     var loadInterval;
@@ -62,6 +63,9 @@
         $.ajax({
             method: 'GET',
             url: API_URL,
+            data: {
+                'token': token
+            },
             success: function(res) {
                 if (res.error) {
                     console.error(res);
@@ -130,4 +134,59 @@
         return $.when();
     }
 
+    // Facebook Stuff
+    window.checkLoginState = function() {
+        FB.getLoginState(function(response) {
+            statusChangeCallback(response);
+        });
+    };
+
+    function statusChangeCallback(response) {
+        console.log(response);
+        if (response.status === 'connected') {
+            token = response.authResponse.accessToken;
+
+            startLoading()
+            .then(getData)
+            .then(parseData)
+            .then(initializeTable)
+            .then(stopLoading)
+            .fail(function(error) {
+                console.error(error);
+                stopLoading();
+                viewLoading.text('Error!');
+            });
+        }
+    }
+
+    window.fbAsyncInit = function() {
+        FB.init({
+            appId      : '1074510792606997',
+            xfbml      : true,
+            version    : 'v2.6'
+        });
+
+        FB.getLoginStatus(function(response) {
+            statusChangeCallback(response);
+        })
+    };
+
+    (function(d, s, id){
+         var js, fjs = d.getElementsByTagName(s)[0];
+         if (d.getElementById(id)) {return;}
+         js = d.createElement(s); js.id = id;
+         js.src = "//connect.facebook.net/en_US/sdk.js";
+         fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));
+
 })();
+
+
+
+
+
+
+
+
+
+

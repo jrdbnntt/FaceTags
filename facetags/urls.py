@@ -19,6 +19,7 @@ from home.urls import urlpatterns as homepatterns
 
 urlpatterns = [
     url(r'^accounts/', include('allauth.urls')),
+
     url(r'^tags/', include('tags.urls')),
     url(r'^admin/', admin.site.urls),
 ]
