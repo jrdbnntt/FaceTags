@@ -20,7 +20,7 @@ def get_user(request):
         friend_img_urls = pull_friends_from_facebook(token)
         friends, remaining_friend_urls = pull_stored_tags(friend_img_urls)
         if len(remaining_friend_urls) > 0:
-            max_new_friends = remaining_friend_urls if CLARIFAI_MAX > remaining_friend_urls else CLARIFAI_MAX
+            max_new_friends = len(remaining_friend_urls) if CLARIFAI_MAX > len(remaining_friend_urls) else CLARIFAI_MAX
             new_friends = pull_tags_from_clarafai(random.sample(remaining_friend_urls, max_new_friends))
             friends.extend(new_friends)
             store_new_friends(new_friends)
