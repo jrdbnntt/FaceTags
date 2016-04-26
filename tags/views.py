@@ -152,12 +152,30 @@ def get_all(request):
     tags = []
 
     for tag in Tag.objects.all():
-        tdata = {
+        tag_data = {
             'name': tag.name,
             'count': tag.facebookimage_set.distinct().count()
         }
         
-        if tdata['count'] > 0:
-            tags.append(tdata)
+        if tag_data['count'] > 0:
+            tags.append(tag_data)
 
     return JsonResponse({'data': tags})
+
+
+def get_fix(request):
+    """ Repairs any database repetition """
+
+    urls = set()
+
+    for img in FacebookImage.objects.all():
+        urls.add(img.url)
+
+    for url in urls:
+        images = FacebookImage.objects.filter(url=url)
+
+        if len(images) > 1:
+            for i in range(1, len(images)):
+                images[i].delete()
+
+    return JsonResponse({'result': 'success'})

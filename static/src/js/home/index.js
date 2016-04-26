@@ -8,7 +8,7 @@
 (function() {
     'use strict';
 
-    var API_URL = '/tags/get_all/';
+    var API_URL = '/tags/all/';
     var view = $('#view');
     var viewTable = view.find('table');
     var viewHeader = viewTable.find('thead tr');
