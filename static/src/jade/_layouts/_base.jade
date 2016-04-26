@@ -24,6 +24,12 @@ html
         meta(name="msapplication-TileImage" content="/static/img/favicon/ms-icon-144x144.png")
         meta(name="theme-color" content="#ffffff")
         
+        //- Links
+        meta(property='og:title' content='FaceTags')
+        meta(property='og:image' content='http://p0.jrdbnntt.com/static/img/logo/logo-icon.png')
+        meta(property='og:type' content='website')
+        meta(property='og:description' content='They say a picture is worth a thousand words. The question is, what are they?')
+        
         //- Mobile support
         meta(name='viewport' content='width=device-width, initial-scale=1')
         
@@ -49,7 +55,8 @@ html
         block footer
             #page-footer
                 .center-block.text-center
-                    h4 #{'<~>'}
+                    a(href='https://github.com/jrdbnntt/facetags' target='_blank')
+                        img.btn(src='/static/img/github.png')
         
             //- JAVASCRIPT
         script(src='/static/bower_components/jquery/dist/jquery.min.js')
