@@ -35,7 +35,7 @@
 
     function startLoading() {
         viewLoading.text('Loading ');
-        var elipContainer = $('span').appendTo(viewLoading);
+        var elipContainer = $('<span></span>').appendTo(viewLoading);
         viewLoading.show();
 
         elipContainer.empty();

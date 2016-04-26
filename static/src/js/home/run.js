@@ -16,6 +16,7 @@
     var viewLoading = view.find('.loading-message');
     var fbLog = view.find('fb.loading-message');
     var loadInterval;
+    var startButton = $('<button type="button" class="btn btn-primary btn-lg">Start</button>');
 
     var columns = [
         { name: 'Tag', data: 'name', sWidth: '100px'},
@@ -25,7 +26,7 @@
 
     function startLoading() {
         viewLoading.text('Loading ');
-        var elipContainer = $('span').appendTo(viewLoading);
+        var elipContainer = $('<span></span>').appendTo(viewLoading);
         viewLoading.show();
 
         elipContainer.empty();
@@ -129,24 +130,28 @@
     };
 
     function statusChangeCallback(response) {
-        console.log(response);
         if (response.status === 'connected') {
             fbLog.hide();
             token = response.authResponse.accessToken;
 
-            startLoading()
-            .then(getData)
-            .then(parseData)
-            .then(initializeTable)
-            .then(stopLoading)
-            .fail(function(error) {
-                console.error(error);
-                stopLoading();
-                viewLoading.text('Error!');
+            startButton.appendTo('#view .text-center');
+            startButton.click(function() {
+                startButton.remove();
+                startLoading()
+                .then(getData)
+                .then(parseData)
+                .then(initializeTable)
+                .then(stopLoading)
+                .fail(function(error) {
+                    console.error(error);
+                    stopLoading();
+                    viewLoading.text('Error! Refresh and try again.');
+                });
             });
+
         } else {
             alert('There was an error connecting to Facebook');
-            viewLoading.text('Error!');
+            viewLoading.text('Error! Unable to connect to Facebook.');
         }
     }
 
