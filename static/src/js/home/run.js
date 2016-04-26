@@ -26,7 +26,7 @@
     ];
 
     function startLoading() {
-        viewLoading.text('Loading ');
+        viewLoading.text('Give us a minute ');
         var elipContainer = $('<span></span>').appendTo(viewLoading);
         viewLoading.show();
 
@@ -151,9 +151,6 @@
                 });
             });
 
-        } else {
-            alert('There was an error connecting to Facebook');
-            viewLoading.text('Error! Unable to connect to Facebook.');
         }
     }
 
