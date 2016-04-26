@@ -15,14 +15,10 @@ block vars
     - title = 'Run'
 
 block content
-    .intro
-        span.text-center They say a picture is worth a thousand words. The question is, what are they?
-        p
-            | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;FaceTags is here to answer that! Thanks to the power of&nbsp;
-            a(href="https://www.clarifai.com") Clarifai&trade;
-            | , you can check out what your friends' profile pictures contain and what is the most common thing between them. Don't know how many friends have cats as their profile picture? We will let you know! Just click the button below and you are on your way to getting to know your Facebook friends even better!
-        
-
+    .intro.center-block
+        .text-center: h3 Here is an example, click the button below to tag your friends!
+        img.img-responsive(src='/static/img/preview.jpg' width='100%' height='auto')
+    
     .divider
 
     .tag-container

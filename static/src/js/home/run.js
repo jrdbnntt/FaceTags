@@ -15,6 +15,7 @@
     var viewHeader = viewTable.find('thead tr');
     var viewLoading = view.find('.loading-message');
     var fbLog = view.find('.fb-btn');
+    var intro = view.find('.intro');
     var loadInterval;
     var startButton = $('<button type="button" class="btn btn-primary btn-lg">Start</button>');
 
@@ -44,6 +45,7 @@
     function stopLoading() {
         clearInterval(loadInterval);
         viewLoading.hide();
+        intro.hide();
         return $.when();
     }
 
