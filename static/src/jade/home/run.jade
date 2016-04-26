@@ -31,5 +31,6 @@ block content
                 thead
                     tr
             .text-center
-                fb:login-button(size='xlarge' scope="email,user_friends,user_photos,public_profile" onlogin="checkLoginState();")
+                .fb-btn
+                    fb:login-button(size='xlarge' scope="email,user_friends,user_photos,public_profile" onlogin="checkLoginState();")
             h3.loading-message

@@ -14,7 +14,7 @@
     var viewTable = view.find('table');
     var viewHeader = viewTable.find('thead tr');
     var viewLoading = view.find('.loading-message');
-    var fbLog = view.find('fb.loading-message');
+    var fbLog = view.find('.fb-btn');
     var loadInterval;
     var startButton = $('<button type="button" class="btn btn-primary btn-lg">Start</button>');
 
