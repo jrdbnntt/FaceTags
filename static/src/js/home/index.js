@@ -104,10 +104,10 @@
             columns: tableData.cols,
             order: [[1, 'desc']],
             aLengthMenu: [
-                [5, 10, 15, 20, -1],
-                [5, 10, 15, 20, 'All']
+                [5, 10, 15, 20, 50, -1],
+                [5, 10, 15, 20, 50, 'All']
             ],
-            iDisplayLength: 25,
+            iDisplayLength: 20,
         });
 
         return $.when();

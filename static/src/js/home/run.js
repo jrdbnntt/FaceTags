@@ -15,7 +15,7 @@
     var viewHeader = viewTable.find('thead tr');
     var viewLoading = view.find('.loading-message');
     var fbLog = view.find('.fb-btn');
-    var intro = view.find('.intro');
+    var intro = $('.intro');
     var loadInterval;
     var startButton = $('<button type="button" class="btn btn-primary btn-lg">Start</button>');
 
@@ -46,6 +46,7 @@
         clearInterval(loadInterval);
         viewLoading.hide();
         intro.hide();
+        view.prepend('<h2 class="page-header">Your FaceTags</h2>');
         return $.when();
     }
 
@@ -115,10 +116,10 @@
             columns: tableData.cols,
             order: [[1, 'desc']],
             aLengthMenu: [
-                [5, 10, 15, 20, -1],
-                [5, 10, 15, 20, 'All']
+                [5, 10, 15, 20, 50, -1],
+                [5, 10, 15, 20, 50, 'All']
             ],
-            iDisplayLength: 25,
+            iDisplayLength: 20,
         });
 
         return $.when();
